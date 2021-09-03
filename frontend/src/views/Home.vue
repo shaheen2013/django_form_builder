@@ -31,10 +31,10 @@
                         <div class="col-md-12">
                             <div class="row border-bottom ">
                                 <div class="col-md-1">
-                                    <i class="fas fa-align-justify"></i>
+                                    <i class="fas fa-arrows-alt"></i>
                                 </div>
                                 <div class="col-md-9 pb-2">
-                                    <input type="text" class="form-control" placeholder="Question title">
+                                    <input v-model="element.title" type="text" class="form-control" placeholder="Question title">
                                 </div>
                                 <div class="col-md-2">
                                     <span @click="removeField(index)"><i class="fas fa-times"></i></span>
@@ -43,14 +43,17 @@
                             <div class="form-group">
                                 <div class="row mt-2">
                                     <div class="col-md-9 ">
-                                        <component :is="`${element.type}_input`" :name="element.name"
-                                                   :select_options="element.value" :inputType="element.input_type"></component>
+                                        <component  :is="`${element.type}_input`" :name="element.input_value"
+                                                   :select_options="element.value" :inputType="element.input_type" v-model="element.input_value"></component>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </draggable>
+                <div class="col-md-8 text-start mt-3">
+                    <button class="btn btn-info " :class="formFields.length == 0 ? 'disabled' : ''" type="button" @click="submitForm" >Submit </button>
+                </div>
             </div>
         </div>
 
@@ -91,7 +94,7 @@
                     )
             },
             log: function (evt) {
-                window.console.log(evt);
+                //window.console.log(evt);
             },
             cloneDog({id, type, title, value}) {
                 let input_type = type;
@@ -100,15 +103,19 @@
                 }
                 return {
                     id        : id,
-                    title     : title,
+                    title     : '',
                     type      : type,
                     value     : value,
                     input_type: input_type,
+                    input_value:'',
                 };
             },
             removeField(id) {
                 console.log(id);
                 this.formFields.splice(id, 1)
+            },
+            submitForm(){
+                    
             }
         }
     }
