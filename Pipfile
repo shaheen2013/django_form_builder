@@ -13,6 +13,7 @@ django-filter = "*"
 django-userforeignkey = "*"
 config = "*"
 django-cors-headers = "*"
+serializer = "*"
 
 [requires]
 python_version = "3.6"
